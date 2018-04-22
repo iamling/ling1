@@ -1,0 +1,18 @@
+算法：
+q(s1,a2)现实=r+y*maxQ(s2) y为衰减值，r为奖励，
+q(s1,a2)估计:Q(s1,a2)
+差距=现实-估计
+新Q(s1,a2)=老Q(s1,a2)+a×差距
+s2要等到s1决策了之后再更新
+Initalize Q(s,a) arbitrarily
+Repeate (for each episode):
+	initialize s
+	repeat (for eache step of episode):
+		choose a from s using policy derived from Q (e.g,mui-greedy)
+		Take action a,observe r,s'
+		Q(s,a)<--Q(s,a)+a（小于1,学习系数）[r+ymax'Q(s',a')-Q(s,a)]
+		s<--s';
+	until s is terminal
+具体看截图1
+暂时的理解是他是按照s2的情况来计算s1决策的Q数，再和估计的做差，然后得到新Q，实现更新，再即而去更新s2，
+但问题来了，一开始s1和s2的值都是随意膜的吗？如果这样，那么是否再实现s1决策，s2更新后，还要返回来看s1.
